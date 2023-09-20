@@ -42,7 +42,7 @@ pipeline {
         stage('Deploy to Tomcat') {
             steps {
                 // Copy the WAR file to Tomcat server using scp with SSH key authentication
-                sh 'sudo scp -i /var/lib/jenkins/.ssh/id_rsa build/libs/*.war root@10.0.3.10:/path/to/tomcat/webapps/'
+                sh 'scp -i /var/lib/jenkins/.ssh/id_rsa build/libs/*.war root@10.0.3.10:/path/to/tomcat/webapps/'
 
                 // 배포가 완료되면 로그에 메시지 출력
                 echo 'WAR 파일을 원격 Tomcat 서버로 배포했습니다.'
