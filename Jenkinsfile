@@ -42,7 +42,15 @@ pipeline {
         stage('Deploy to Tomcat') {
             steps {
                 // Copy the WAR file to Tomcat server using scp with SSH key authentication
-                sh 'scp -i /var/lib/jenkins/.ssh/id_rsa build/libs/*.war root@10.0.3.10:/usr/local/src/tomcat/webapps'
+                sh '''
+                ssh -i /var/lib/jenkins/.ssh/id_rsa root@10.0.3.10 "rm -rf /usr/local/src/tomcat/webapps/ROOT.old"
+                ssh -i /var/lib/jenkins/.ssh/id_rsa root@10.0.3.10 "mv /usr/local/src/tomcat/webapps/ROOT /usr/local/src/tomcat/webapps/ROOT.old"
+                ssh -i /var/lib/jenkins/.ssh/id_rsa root@10.0.3.10 "rm -rf /usr/local/src/tomcat/webapps/ROOT"
+                scp -i /var/lib/jenkins/.ssh/id_rsa build/libs/hello-spring-0.0.1-SNAPSHOT.war root@10.0.3.10:/usr/local/src/tomcat/webapps
+                ssh -i /var/lib/jenkins/.ssh/id_rsa root@10.0.3.10 "mv /usr/local/src/tomcat/webapps/ROOT /usr/local/src/tomcat/webapps/ROOT"
+                ssh -i /var/lib/jenkins/.ssh/id_rsa root@10.0.3.10 "rm -rf /usr/local/src/tomcat/webapps/hello-spring-0.0.1-SNAPSHOT.war"
+                
+                '''
 
                 // 배포가 완료되면 로그에 메시지 출력
                 echo 'WAR 파일을 원격 Tomcat 서버로 배포했습니다.'
