@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    tools {
+        // 지정된 이름으로 Gradle을 사용하도록 설정
+        gradle 'Gradle 8.2.1'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -36,8 +41,11 @@ pipeline {
 
         stage('Deploy to Tomcat') {
             steps {
-                // Copy the WAR file to Tomcat's webapps directory
-                sh 'cp build/libs/*.war /path/to/tomcat/webapps/'
+                // Copy the WAR file to Tomcat server using scp
+                sh "scp -o StrictHostKeyChecking=no build/libs/*.war root@10.0.3.10:/path/to/tomcat/webapps/"
+
+                // 배포가 완료되면 로그에 메시지 출력
+                echo 'WAR 파일을 원격 Tomcat 서버로 배포했습니다.'
             }
         }
     }
