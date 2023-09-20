@@ -48,9 +48,6 @@ pipeline {
                 ssh -i /var/lib/jenkins/.ssh/id_rsa root@10.0.3.10 "mv /usr/local/src/tomcat/webapps/ROOT /usr/local/src/tomcat/webapps/ROOT.old"
                 scp -i /var/lib/jenkins/.ssh/id_rsa build/libs/hello-spring-0.0.1-SNAPSHOT.war root@10.0.3.10:/usr/local/src/tomcat/webapps
                 ssh -i /var/lib/jenkins/.ssh/id_rsa root@10.0.3.10 "mv /usr/local/src/tomcat/webapps/hello-spring-0.0.1-SNAPSHOT.war /usr/local/src/tomcat/webapps/ROOT.war"
-                // ssh -i /var/lib/jenkins/.ssh/id_rsa root@10.0.3.10 "sleep 2"
-                // ssh -i /var/lib/jenkins/.ssh/id_rsa root@10.0.3.10 "mv /usr/local/src/tomcat/webapps/hello-spring-0.0.1-SNAPSHOT /usr/local/src/tomcat/webapps/ROOT"
-                // ssh -i /var/lib/jenkins/.ssh/id_rsa root@10.0.3.10 "rm -rf /usr/local/src/tomcat/webapps/hello-spring-0.0.1-SNAPSHOT.war"
                 
                 '''
 
