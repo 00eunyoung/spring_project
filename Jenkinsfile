@@ -1,10 +1,10 @@
 pipeline {
     agent any
 
-    tools {
-        // 지정된 이름으로 Gradle을 사용하도록 설정
-        gradle 'Gradle 8.2.1'
-    }
+    // tools {
+    //     // 지정된 이름으로 Gradle을 사용하도록 설정
+    //     gradle 'Gradle 8.2.1'
+    // }
 
     stages {
         stage('Checkout') {
