@@ -18,7 +18,7 @@ pipeline {
                         extensions: [],  // Git 확장 옵션을 지정하지 않습니다.
                         submoduleCfg: [],  // 서브모듈 구성도 지정하지 않습니다.
                         userRemoteConfigs: [  // Git 원격 저장소 설정을 정의합니다.
-                            [url: 'https://github.com/00eunyoung/spring_project.git']  // 원격 저장소 URL을 지정합니다.
+                            [url: 'https://github.com/jinhoDevOps/django_demo.git']  // 원격 저장소 URL을 지정합니다.
                         ]
                     ])
                 }
