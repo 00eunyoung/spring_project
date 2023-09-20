@@ -1,6 +1,11 @@
 pipeline {
     agent any
     
+    tools {
+        // Specify the name of the Git tool configured in Global Tool Configuration
+        git 'https://github.com/00eunyoung/spring_project.git'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -9,10 +14,18 @@ pipeline {
             }
         }
         
+        stage('Prepare Gradle Wrapper') {
+            steps {
+                // Give execute permission to Gradle Wrapper script
+                sh 'chmod +x ./gradlew'
+            }
+        }
+
         stage('Build') {
             steps {
                 // Gradle build step
-                sh './gradlew build'
+                sh './gradlew clean build'
+
             }
         }
         
