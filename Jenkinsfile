@@ -1,19 +1,14 @@
 pipeline {
     agent any
-    
-    tools {
-        // Specify the name of the Git tool configured in Global Tool Configuration
-        git 'https://github.com/00eunyoung/spring_project.git'
-    }
 
     stages {
         stage('Checkout') {
             steps {
-                // Git checkout step
-                checkout scm
+                // Git checkout step with Git tool named "Default"
+                git tool: 'Default', url: 'https://github.com/00eunyoung/spring_project.git'
             }
         }
-        
+
         stage('Prepare Gradle Wrapper') {
             steps {
                 // Give execute permission to Gradle Wrapper script
@@ -23,12 +18,11 @@ pipeline {
 
         stage('Build') {
             steps {
-                // Gradle build step
+                // Gradle clean and build
                 sh './gradlew clean build'
-
             }
         }
-        
+
         stage('Deploy to Tomcat') {
             steps {
                 // Copy the WAR file to Tomcat's webapps directory
