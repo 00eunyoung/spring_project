@@ -37,7 +37,7 @@ pipeline {
                 // Gradle clean and build
                 sh './gradlew clean build'
             }
-        }
+        }//
 
         stage('Deploy to Tomcat') {
             steps {
