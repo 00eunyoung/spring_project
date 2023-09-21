@@ -27,7 +27,7 @@ pipeline {
 
         stage('Prepare Gradle Wrapper') {
             steps {
-                // Give execute permission to Gradle Wrapper script
+                // 빌드할 수 있도록 gradlew 파일에 권한 부여
                 sh 'chmod +x ./gradlew'
             }
         }
@@ -37,11 +37,15 @@ pipeline {
                 // Gradle clean and build
                 sh './gradlew clean build'
             }
-        }//
+        }
 
         stage('Deploy to Tomcat') {
             steps {
                 // Copy the WAR file to Tomcat server using scp with SSH key authentication
+                // 기존 ROOT.war, ROOT.old 파일은 지우고 ROOT 파일을 ROOT.old로 변경
+                // scp 명령어를 통해 10.0.3.10(tomcat 서버)로 war파일 배포(여기선 hello-spring-0.0.1-SNAPSHOT.war)
+                // hello-spring-0.0.1-SNAPSHOT.war 파일을 ROOT라는 이름으로 변경
+
                 sh '''
                 ssh root@10.0.3.10 "rm -rf /usr/local/src/tomcat/webapps/ROOT.war"
                 ssh root@10.0.3.10 "rm -rf /usr/local/src/tomcat/webapps/ROOT.old"
